@@ -15,11 +15,11 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 -- Game variables
-sacrificePool = 0  -- Pool of sacrifices for playing cards
-playerBoard = {nil, nil, nil}  -- three slots, hand cards
-playSlot = {nil, nil, nil}  -- Three slots for playing cards
+blood = 0  -- Pool of sacrifices for playing cards
+playerHand = {nil, nil, nil}  -- three slots, hand cards
+playBoard = {nil, nil, nil}  -- Three slots for playing cards
 selectedCard = nil  -- Placeholder for selected cards
-selectedSlot = 1  -- Currently selected slot to play or sacrifice cards
+slot = 1  -- Currently selected slot to play or sacrifice cards
 local gameState = "start"  -- game state
 screenShakeSprite = ScreenShake()
 local textDisplayFrames = 0
@@ -43,9 +43,9 @@ end
 local function randomCard()
     for i = 1, 3 do
         if math.random() <= 0.35 then
-            playerBoard[i] = WolfCard:new()
+            playerHand[i] = WolfCard:new()
         else
-            playerBoard[i] = RabbitCard:new()
+            playerHand[i] = RabbitCard:new()
         end
     end
     gameState = "phase1"
@@ -53,26 +53,28 @@ end
 
 -- Function to display cards on the board
 local function displayBoard()
+    gfx.drawText("Blood: " .. blood, 20, 20)
+    gfx.drawText("Slot: " .. slot, 20, 40)
+
     for i = 1, 3 do
-        if playerBoard[i] then
-            gfx.drawText(playerBoard[i]:describe(), 20, 140 + (i * 20))  -- Display cards in hand
+        if playerHand[i] then
+            gfx.drawText(playerHand[i]:describe(), 20 + (i * 90), 190)  -- Display cards in hand
 
             -- Draw the card sprite
-            playerBoard[i].sprite:moveTo(20, 120 + (i * 30))  -- Adjust the position as needed
-            playerBoard[i].sprite:add()
+            --playerHand[i].sprite:moveTo(20, 120 + (i * 30))  -- Adjust the position as needed
+            --playerHand[i].sprite:add()
         end
-        if playSlot[i] ~= nil then
-            gfx.drawText(playSlot[i]:describe(), 60 + (i * 80), 200)  -- Display played card
+        if playBoard[i] ~= nil then
+            gfx.drawText(playBoard[i]:describe(), 20 + (i * 90), 140)  -- Display played card
 
             -- Draw the played card sprite
-            playSlot[i].sprite:moveTo(60 + (i * 80), 180)  -- Adjust the position as needed
-            playSlot[i].sprite:add()
+            --playerBoard[i].sprite:moveTo(60 + (i * 80), 180)  -- Adjust the position as needed
+            --playerBoard[i].sprite:add()
         else
-            gfx.drawText("Empty", 60 + (i * 80), 200)  -- Display "Empty" slot
+        gfx.drawText("Empty", 20 + (i * 90), 140)  -- Display "Empty" slot
         end
     end
-    gfx.drawText("Sacrifice Pool: " .. sacrificePool, 150, 20)
-    gfx.drawText("Selected Slot: " .. selectedSlot, 150, 40)
+
 end
 
 

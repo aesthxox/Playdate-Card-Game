@@ -26,5 +26,5 @@ end
 
 -- Method to describe the card
 function Card:describe(health)
-    return self.name .. " (" .. self.attack .. "/" .. self.health .. ") Cost: " .. self.cost
+return self.name .. " (" .. self.attack .. "/" .. self.health .. ")\nCost: " .. self.cost
 end
