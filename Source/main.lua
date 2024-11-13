@@ -4,7 +4,7 @@ import "CoreLibs/object"
 import "CoreLibs/timer"
 import "CoreLibs/sprites"
 
--- class
+-- class    
 import "wolf"
 import "rabbit"
 import "opponent"
@@ -56,22 +56,22 @@ local function displayBoard()
     gfx.drawText("Blood: " .. blood, 20, 20)
     gfx.drawText("Slot: " .. slot, 20, 40)
 
-    for i = 1, 3 do
-        if playerHand[i] then
-            gfx.drawText(playerHand[i]:describe(), 20 + (i * 90), 190)  -- Display cards in hand
+    for i = 0, 2 do
+        if playerHand[i + 1] then
+            gfx.drawText(playerHand[i + 1]:describe(), 50 + (i * 100), 190)  -- Display cards in hand
 
             -- Draw the card sprite
             --playerHand[i].sprite:moveTo(20, 120 + (i * 30))  -- Adjust the position as needed
             --playerHand[i].sprite:add()
         end
-        if playBoard[i] ~= nil then
-            gfx.drawText(playBoard[i]:describe(), 20 + (i * 90), 140)  -- Display played card
+        if playBoard[i + 1] ~= nil then
+            gfx.drawText(playBoard[i + 1]:describe(), 50 + (i * 100), 140)  -- Display played card
 
             -- Draw the played card sprite
             --playerBoard[i].sprite:moveTo(60 + (i * 80), 180)  -- Adjust the position as needed
             --playerBoard[i].sprite:add()
         else
-        gfx.drawText("Empty", 20 + (i * 90), 140)  -- Display "Empty" slot
+        gfx.drawText("Empty", 50 + (i * 100), 140)  -- Display "Empty" slot
         end
     end
 
@@ -93,7 +93,7 @@ function pd.update()
 
         -- Display the message if the frame counter is greater than 0
     if textDisplayFrames > 0 then
-        gfx.drawText(messageText, 100, 100) -- Adjust position as necessary
+        gfx.drawText(messageText, 120, 30) -- Adjust position as necessary
         textDisplayFrames = textDisplayFrames - 1 -- Decrement the frame counter
     end
 
