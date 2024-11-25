@@ -1,14 +1,5 @@
-import "person"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
-
---inheritance from the person
-Player = setmetatable({}, { __index = Person})
-
---Giving the player a name and health
-function Player:new()
-    return Person.new(self, "Player", 5)
-end
 
 -- Function to select a card from hand to play
 function playCard(card, slot)
@@ -67,10 +58,10 @@ function endTurn()
                 displayMessage("Opponent Died!", 15)
                 setShakeAmount(10)
             end
-        --else
-            --Opponent.health =- playBoard[i].attack
-            --displayMessage("Opponent hit for" + playBoard[i].attack, 15)
-
+        else if playBoard[i] ~= nil then
+            cardAttacksPerson(playBoard[i].attack)
+            setShakeAmount(10)
+        end
         end
     end
 end

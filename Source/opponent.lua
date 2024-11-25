@@ -1,5 +1,4 @@
 import "card"
-import "person"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 Opponent = setmetatable({}, { __index = Person })
@@ -7,10 +6,6 @@ Opponent = setmetatable({}, { __index = Person })
 --inheriting from the person class
 opponentBoard = {nil, RabbitCard:new(), nil}
 
--- Giving the opponent a name and health
-function Opponent:new()
-    return Person.new(self, "Harold", 5)
-end
 
 --Displaying th opponent board
 function displayOpponent(health)

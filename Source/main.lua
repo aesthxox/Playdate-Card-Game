@@ -11,6 +11,7 @@ import "opponent"
 import "screenShake"
 import "player"
 
+
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
@@ -76,7 +77,6 @@ local function displayBoard()
     end
 
 end
-
 
 -- Update game
 function pd.update()
