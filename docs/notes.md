@@ -15,6 +15,9 @@ Clean UI:
         -playboard text
         -messaging text
         -opponent text
+
+    Preni(11/24):
+    only issue is the attack isnt regristring
     
 More function for the enemy:
 - play another card, once its their turn.

@@ -1,5 +1,12 @@
+import "person"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+
+Player = setmetatable ({}, { __index = Person})
+
+function Player:new()
+    return Person.new(self, "Igor", 5)
+end
 
 -- Function to select a card from hand to play
 function playCard(card, slot)
@@ -48,20 +55,21 @@ end
 --Ending turn
 function endTurn()
     for i = 1, 3 do
-        if opponentBoard[i] and playBoard[i] ~= nil then 
-            opponentBoard[i].health =- playBoard[i].attack
-            setShakeAmount(5)
-            if opponentBoard[i].health <= 0 then
-                opponentBoard[i] = nil
-            else
-                displayOpponent(opponentBoard[i].health)
-                displayMessage("Opponent Died!", 15)
+        if playBoard[i] ~= nil then  --If there is a card in both the opponent and player board
+            if opponentBoard[i] ~= nil then
+                opponentBoard[i].health =- playBoard[i].attack
+                setShakeAmount(5)
+                if opponentBoard[i].health <= 0 then -- if after the "attack" health drops below 0, it deletes the card
+                    opponentBoard[i] = nil
+                    displayMessage("Opponent Died!", 15)
+                    setShakeAmount(10)
+                --else
+                    --displayOpponent(opponentBoard[i].health)
+                end
+            else 
+                cardAttacksPerson(playBoard[i].attack)
                 setShakeAmount(10)
             end
-        else if playBoard[i] ~= nil then
-            cardAttacksPerson(playBoard[i].attack)
-            setShakeAmount(10)
-        end
         end
     end
 end

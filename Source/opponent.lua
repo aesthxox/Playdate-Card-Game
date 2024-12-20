@@ -1,11 +1,16 @@
-import "card"
+import "person"
+
 local pd <const> = playdate
 local gfx <const> = pd.graphics
-Opponent = setmetatable({}, { __index = Person })
 
---inheriting from the person class
+-- Opponent's round one play
 opponentBoard = {nil, RabbitCard:new(), nil}
 
+Opponent = setmetatable({}, { __index = Person})
+
+function Opponent:new()
+    return Person.new(self, "Harold", 10)
+end
 
 --Displaying th opponent board
 function displayOpponent(health)
